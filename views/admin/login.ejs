@@ -1,0 +1,21 @@
+<%- include('../partials/header', { title: "Admin Login — Viola's Kitchen" }) %>
+
+<section class="admin-login">
+  <h1>Admin Login</h1>
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+  <form method="POST" action="/admin/login" class="admin-form">
+    <div class="form-row">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autofocus>
+    </div>
+    <div class="form-row">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Log in</button>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

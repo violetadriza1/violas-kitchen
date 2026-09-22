@@ -1,0 +1,38 @@
+<%- include('partials/header', { title: "Viola's Kitchen — Recipes" }) %>
+
+<section class="hero">
+  <h1>Viola's Kitchen</h1>
+  <p>Simple, tested recipes across five categories — filter below to find something to cook tonight.</p>
+</section>
+
+<nav class="category-filter">
+  <a href="/" class="<%= !activeCategory ? 'active' : '' %>">All</a>
+  <% categories.forEach(function(cat) { %>
+    <a href="/?category=<%= encodeURIComponent(cat) %>" class="<%= activeCategory === cat ? 'active' : '' %>">
+      <%= cat %>
+    </a>
+  <% }); %>
+</nav>
+
+<% if (recipes.length === 0) { %>
+  <p class="empty-state">No recipes in this category yet — check back soon!</p>
+<% } else { %>
+  <div class="recipe-grid">
+    <% recipes.forEach(function(recipe) { %>
+      <a class="recipe-card" href="/recipes/<%= recipe.id %>">
+        <% if (recipe.image_url) { %>
+          <img src="<%= recipe.image_url %>" alt="<%= recipe.title %>" class="recipe-card-img">
+        <% } else { %>
+          <div class="recipe-card-img recipe-card-img--placeholder">🍽️</div>
+        <% } %>
+        <div class="recipe-card-body">
+          <span class="badge"><%= recipe.category %></span>
+          <h2><%= recipe.title %></h2>
+          <p class="recipe-meta"><%= recipe.prep_time %></p>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

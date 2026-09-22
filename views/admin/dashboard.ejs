@@ -1,0 +1,47 @@
+<%- include('../partials/header', { title: "Admin Dashboard — Viola's Kitchen" }) %>
+
+<section class="admin-dashboard">
+  <div class="admin-dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <div class="admin-dashboard-actions">
+      <a href="/admin/recipes/new" class="button">+ New Recipe</a>
+      <form method="POST" action="/admin/logout" class="inline-form">
+        <button type="submit" class="button button--secondary">Log out</button>
+      </form>
+    </div>
+  </div>
+
+  <% if (recipes.length === 0) { %>
+    <p class="empty-state">No recipes yet. Click "New Recipe" to add your first one.</p>
+  <% } else { %>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Prep Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recipes.forEach(function(recipe) { %>
+          <tr>
+            <td><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></td>
+            <td><span class="badge"><%= recipe.category %></span></td>
+            <td><%= recipe.prep_time %></td>
+            <td class="admin-table-actions">
+              <a href="/admin/recipes/<%= recipe.id %>/edit" class="button button--small">Edit</a>
+              <form method="POST" action="/admin/recipes/<%= recipe.id %>/delete"
+                    class="inline-form"
+                    onsubmit="return confirm('Delete \'<%= recipe.title %>\'? This cannot be undone.');">
+                <button type="submit" class="button button--small button--danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

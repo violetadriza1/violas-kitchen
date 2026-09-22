@@ -1,0 +1,61 @@
+<%- include('partials/header', { title: recipe.title + " — Viola's Kitchen" }) %>
+
+<article class="recipe-detail">
+  <a href="/" class="back-link">&larr; All recipes</a>
+  <span class="badge"><%= recipe.category %></span>
+  <h1><%= recipe.title %></h1>
+  <p class="recipe-meta">Prep/cook time: <%= recipe.prep_time %> · By <%= recipe.author %></p>
+
+  <% if (recipe.image_url) { %>
+    <img src="<%= recipe.image_url %>" alt="<%= recipe.title %>" class="recipe-detail-img">
+  <% } %>
+
+  <div class="recipe-columns">
+    <section class="ingredients">
+      <h2>Ingredients</h2>
+      <ul>
+        <% recipe.ingredients.split('\n').forEach(function(line) { %>
+          <% if (line.trim()) { %><li><%= line.trim() %></li><% } %>
+        <% }); %>
+      </ul>
+    </section>
+
+    <section class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <% recipe.instructions.split('\n').forEach(function(line) { %>
+          <% if (line.trim()) { %><li><%= line.trim() %></li><% } %>
+        <% }); %>
+      </ol>
+    </section>
+  </div>
+
+  <section class="comments" id="comments-section">
+    <h2>Comments (<span id="comment-count"><%= comments.length %></span>)</h2>
+
+    <ul class="comment-list" id="comment-list">
+      <% comments.forEach(function(comment) { %>
+        <li class="comment">
+          <strong><%= comment.author_name %></strong>
+          <p><%= comment.comment_text %></p>
+        </li>
+      <% }); %>
+    </ul>
+
+    <form id="comment-form" class="comment-form" data-recipe-id="<%= recipe.id %>">
+      <div class="form-row">
+        <label for="author_name">Name</label>
+        <input type="text" id="author_name" name="author_name" maxlength="100" required>
+      </div>
+      <div class="form-row">
+        <label for="comment_text">Comment</label>
+        <textarea id="comment_text" name="comment_text" maxlength="1000" rows="3" required></textarea>
+      </div>
+      <button type="submit">Post comment</button>
+      <p class="form-message" id="comment-form-message"></p>
+    </form>
+  </section>
+</article>
+
+<script src="/js/comments.js"></script>
+<%- include('partials/footer') %>

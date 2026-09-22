@@ -1,0 +1,63 @@
+<%- include('../partials/header', { title: (mode === 'new' ? 'New Recipe' : 'Edit Recipe') + " — Viola's Kitchen" }) %>
+
+<section class="admin-form-section">
+  <h1><%= mode === 'new' ? 'New Recipe' : 'Edit Recipe' %></h1>
+
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+
+  <form method="POST"
+        action="<%= mode === 'new' ? '/admin/recipes' : '/admin/recipes/' + recipe.id + '/edit' %>"
+        class="admin-form">
+
+    <div class="form-row">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" maxlength="150" required
+             value="<%= recipe ? recipe.title : '' %>">
+    </div>
+
+    <div class="form-row">
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
+        <option value="" disabled <%= !recipe ? 'selected' : '' %>>Select a category</option>
+        <% categories.forEach(function(cat) { %>
+          <option value="<%= cat %>" <%= recipe && recipe.category === cat ? 'selected' : '' %>>
+            <%= cat %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="prep_time">Prep / cook time (e.g. "25 min")</label>
+      <input type="text" id="prep_time" name="prep_time" maxlength="30" required
+             value="<%= recipe ? recipe.prep_time : '' %>">
+    </div>
+
+    <div class="form-row">
+      <label for="image_url">Image URL (optional)</label>
+      <input type="text" id="image_url" name="image_url" maxlength="255"
+             value="<%= recipe && recipe.image_url ? recipe.image_url : '' %>">
+    </div>
+
+    <div class="form-row">
+      <label for="ingredients">Ingredients (one per line)</label>
+      <textarea id="ingredients" name="ingredients" rows="8" required
+                ><%= recipe ? recipe.ingredients : '' %></textarea>
+    </div>
+
+    <div class="form-row">
+      <label for="instructions">Instructions (one step per line)</label>
+      <textarea id="instructions" name="instructions" rows="8" required
+                ><%= recipe ? recipe.instructions : '' %></textarea>
+    </div>
+
+    <button type="submit">
+      <%= mode === 'new' ? 'Publish Recipe' : 'Save Changes' %>
+    </button>
+    <a href="/admin" class="button button--secondary">Cancel</a>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>
