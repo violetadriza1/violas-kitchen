@@ -36,7 +36,10 @@
     <ul class="comment-list" id="comment-list">
       <% comments.forEach(function(comment) { %>
         <li class="comment">
-          <strong><%= comment.author_name %></strong>
+          <div class="comment-meta">
+            <strong><%= comment.author_name %></strong>
+            <span class="comment-date"><%= new Date(comment.created_at).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) %></span>
+          </div>
           <p><%= comment.comment_text %></p>
         </li>
       <% }); %>
