@@ -396,3 +396,6 @@ button:hover, .button:hover { background: var(--green); }
 .admin-table-actions { display: table-cell; white-space: nowrap; }
 .admin-table-actions .button,
 .admin-table-actions .inline-form { margin-right: 0.5rem; vertical-align: middle; }
+
+/* Let recipe cards shrink on very narrow screens instead of overflowing */
+.recipe-grid { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
