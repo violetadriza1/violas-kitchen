@@ -34,6 +34,9 @@
     <h2>Comments (<span id="comment-count"><%= comments.length %></span>)</h2>
 
     <ul class="comment-list" id="comment-list">
+      <% if (comments.length === 0) { %>
+        <li class="comment-empty" id="comment-empty">No comments yet. Be the first to share your thoughts!</li>
+      <% } %>
       <% comments.forEach(function(comment) { %>
         <li class="comment">
           <div class="comment-meta">
