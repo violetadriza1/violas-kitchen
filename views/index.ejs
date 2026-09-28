@@ -15,7 +15,7 @@
 </nav>
 
 <% if (recipes.length === 0) { %>
-  <p class="empty-state">No recipes in this category yet — check back soon!</p>
+  <p class="empty-state"><% if (activeCategory) { %>No <%= activeCategory %> recipes yet. Check back soon, or <a href="/">browse all recipes</a>.<% } else { %>No recipes have been published yet. Check back soon!<% } %></p>
 <% } else { %>
   <div class="recipe-grid">
     <% recipes.forEach(function(recipe) { %>
