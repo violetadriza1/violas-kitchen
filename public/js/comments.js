@@ -9,6 +9,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const messageEl = document.getElementById('comment-form-message');
   const recipeId = form.dataset.recipeId;
 
+  // Same date format the server uses when it renders existing comments.
+  function formatTimestamp(value) {
+    return new Date(value).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+  }
+
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
     messageEl.textContent = '';
@@ -35,18 +46,33 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Append the new comment to the list without reloading the page.
+      // Build the new comment with textContent (never innerHTML) so user input stays inert.
       const li = document.createElement('li');
       li.className = 'comment';
+
+      const meta = document.createElement('div');
+      meta.className = 'comment-meta';
 
       const strong = document.createElement('strong');
       strong.textContent = data.comment.author_name;
 
+      const date = document.createElement('span');
+      date.className = 'comment-date';
+      date.textContent = formatTimestamp(data.comment.created_at);
+
+      meta.appendChild(strong);
+      meta.appendChild(date);
+
       const p = document.createElement('p');
       p.textContent = data.comment.comment_text;
 
-      li.appendChild(strong);
+      li.appendChild(meta);
       li.appendChild(p);
+
+      // Remove the "no comments yet" message the first time a comment is posted.
+      const emptyEl = document.getElementById('comment-empty');
+      if (emptyEl) emptyEl.remove();
+
       list.appendChild(li);
 
       countEl.textContent = String(Number(countEl.textContent) + 1);
@@ -54,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
       form.reset();
       messageEl.textContent = 'Comment posted!';
     } catch (err) {
-      messageEl.textContent = 'Network error — please try again.';
+      messageEl.textContent = 'Network error, please try again.';
     }
   });
 });
