@@ -391,3 +391,8 @@ button:hover, .button:hover { background: var(--green); }
   .admin-form-section h1 { font-size: 1.7rem; }
   .admin-table { display: block; overflow-x: auto; white-space: nowrap; }
 }
+
+/* Keep the Edit/Delete cell a real table cell so row borders line up */
+.admin-table-actions { display: table-cell; white-space: nowrap; }
+.admin-table-actions .button,
+.admin-table-actions .inline-form { margin-right: 0.5rem; vertical-align: middle; }
