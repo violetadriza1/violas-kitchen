@@ -343,3 +343,28 @@ button:hover, .button:hover { background: var(--green); }
   font-size: 0.85rem;
   text-align: center;
 }
+
+/* Comment timestamps and empty state */
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin-bottom: 0.2rem;
+}
+.comment-meta strong { margin-bottom: 0; }
+.comment-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.comment-empty {
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.15rem;
+  margin-bottom: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
