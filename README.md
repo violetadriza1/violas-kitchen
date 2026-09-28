@@ -97,6 +97,7 @@ Log in, open the dashboard, click **+ New Recipe**, fill in the title, category,
 
 ## How recipe photos work
 
+* The six recipe photos are AI-generated images. I created them with AI image tools (ChatGPT for five of them, Gemini for the sweet potato fries) and then resized and compressed them for the web. They are illustrative images, not photographs.
 * Photos are ordinary files in `public/images/`. Express serves everything in `public/` as static files, so `public/images/pancakes.jpg` is available in the browser at `/images/pancakes.jpg`.
 * Each recipe stores that path in its `image_url` column. `schema.sql` seeds the six recipes with their paths (`/images/chicken-wings.jpg`, `/images/lava-cake.jpg`, `/images/pancakes.jpg`, `/images/beef-stew.jpg`, `/images/chicken-thighs.jpg`, `/images/sweet-potato-fries.jpg`).
 * To give a new recipe a photo, copy the file into `public/images/` and enter `/images/your-file.jpg` in the **Image URL** field, or paste a full `https://` address. If the field is left empty, a placeholder plate icon is shown.
